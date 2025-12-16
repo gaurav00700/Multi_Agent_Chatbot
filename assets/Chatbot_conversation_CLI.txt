@@ -1,0 +1,135 @@
+(llm) gaurav@Granite:~/Desktop/Work/Interview/Scope Group/Assignment/Multi_Agent_Chatbot$ python ./src/agents/supervisor.py 
+                      +-----------+                    
+                      | __start__ |                    
+                      +-----------+                    
+                             *                         
+                             *                         
+                             *                         
+                      +------------+                   
+                      | supervisor |                   
+                    ..+------------+..                 
+                 ...          .       ...              
+             ....              .         ....          
+           ..                  .             ..        
++--------------+       +--------------+       +-----+  
+| conversation |       | data_analyst |      .| rag |  
++--------------+.      +--------------+  .... +-----+  
+                 ...          .       ...              
+                    ....     .    ....                 
+                        ..   .  ..                     
+                       +---------+                     
+                       | __end__ |                     
+                       +---------+                     
+User👨: What was Alpha Corp’s revenue in 2022 in database ?
+Agent🤖: [INFO] Supervisor: Next agent ==> data_analyst 
+Thought: To find Alpha Corp's revenue in 2022, I first need to connect to the local database and inspect the available tables and their schemas. This will help me identify where the revenue data is stored and how to query it.
+
+Action: I will open the local database and list the available tables to find the relevant information.
+
+```python
+import sqlite3
+import os
+
+# Load environment variable 
+db_path = os.getenv('DB_PATH')
+
+# Establish connection
+conn = sqlite3.connect(db_path)
+cursor = conn.cursor()
+
+# List available tables
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+tables = [row[0] for row in cursor.fetchall()]
+tables
+```
+[Using tool🔨: python_tool]
+
+Observation: The database contains a table named "financials," which likely holds the revenue data. Next, I will inspect the schema of the "financials" table to identify the relevant columns, such as the company name and revenue for the year 2022.
+
+Action: I will query the schema of the "financials" table.
+
+```python
+# Inspect the schema of the financials table
+cursor.execute("PRAGMA table_info(financials);")
+schema = cursor.fetchall()
+schema
+```
+[Using tool🔨: python_tool]
+
+Observation: It seems that the cursor variable is not defined in the current execution context. I need to re-establish the database connection and then inspect the schema of the "financials" table.
+
+Action: I will reconnect to the database and inspect the schema of the "financials" table again.
+
+```python
+import sqlite3
+import os
+
+# Load environment variable 
+db_path = os.getenv('DB_PATH')
+
+# Establish connection
+conn = sqlite3.connect(db_path)
+cursor = conn.cursor()
+
+# Inspect the schema of the financials table
+cursor.execute("PRAGMA table_info(financials);")
+schema = cursor.fetchall()
+schema
+```
+[Using tool🔨: python_tool]
+
+Observation: The "financials" table has the following relevant columns:
+- `company`: The name of the company
+- `fiscal_year`: The year of the financial data
+- `revenue`: The revenue amount
+
+Now, I can query this table to find Alpha Corp's revenue for the year 2022.
+
+Action: I will execute a query to retrieve the revenue for Alpha Corp in 2022.
+
+```python
+# Query to get Alpha Corp's revenue in 2022
+query = """
+SELECT revenue 
+FROM financials 
+WHERE company = 'Alpha Corp' AND fiscal_year = 2022;
+"""
+cursor.execute(query)
+alpha_corp_revenue = cursor.fetchone()
+alpha_corp_revenue
+```
+[Using tool🔨: python_tool]
+
+Observation: The cursor variable is again not defined due to the previous context loss. I need to re-establish the database connection and execute the query to find Alpha Corp's revenue for 2022.
+
+Action: I will reconnect to the database and run the query again.
+
+```python
+import sqlite3
+import os
+
+# Load environment variable 
+db_path = os.getenv('DB_PATH')
+
+# Establish connection
+conn = sqlite3.connect(db_path)
+cursor = conn.cursor()
+
+# Query to get Alpha Corp's revenue in 2022
+query = """
+SELECT revenue 
+FROM financials 
+WHERE company = 'Alpha Corp' AND fiscal_year = 2022;
+"""
+cursor.execute(query)
+alpha_corp_revenue = cursor.fetchone()
+alpha_corp_revenue
+```
+[Using tool🔨: python_tool]
+
+Observation: Alpha Corp's revenue for the year 2022 is $168,000,000.
+
+This concludes the analysis. If you need further assistance or additional information, feel free to ask!Observation: Alpha Corp's revenue for the year 2022 is $168,000,000.
+
+This concludes the analysis. If you need further assistance or additional information, feel free to ask!
+-----------------

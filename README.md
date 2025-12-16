@@ -7,21 +7,22 @@
 * Expert agent has access of tools such as local python executor and knowledge vector DB 
 * Data Cleaning and Normalization from csv/txt/xls/json file
 * Data Ingestion on Sqlite (local) and Postgres (server based)
-* LLM reasoning (OpenAI)
-* Streamlit frontend
+* LLM reasoning using OpenAI and Ollama
+* Multi Chat interfaces using [CLI](assets/Chatbot_conversation_CLI.txt) as well as [Streamlit frontend](assets/frontend.png)
+* Observability and tracking using LangSmith
 
 ## 📸 Architecture Overview
 Architecture |
 :-------------------------:
 <img src="assets/architecture.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
 
-<!-- Multi-Agent Swarm |
-:-------------------------:
-<img src="assets/multi-agent-swarm.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" > -->
-
 Frontend Interface |
 :-------------------------:
-<img src="assets/frontend.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
+<img src="assets/LangSmith_observability.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
+Observability using LangSmith |
+
+:-------------------------:
+<img src="assets/multi-agent-swarm.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
 
 ## Agents task:
 * Supervisor agent → Routing between expert agents, data_analyst and conversation
