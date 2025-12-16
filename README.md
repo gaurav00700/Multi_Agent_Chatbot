@@ -18,11 +18,11 @@ Architecture |
 
 Frontend Interface |
 :-------------------------:
-<img src="assets/LangSmith_observability.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
+<img src="assets/frontend.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
 
 Observability using LangSmith |
 :-------------------------:
-<img src="assets/multi-agent-swarm.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
+<img src="assets/LangSmith_observability.png" style="display: block; margin-left: auto; margin-right: auto; max-width: 75%; height: auto;" >
 
 ## Agents task:
 * Supervisor agent → Routing between expert agents, data_analyst and conversation
