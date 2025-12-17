@@ -1,4 +1,4 @@
-(llm) gaurav@Granite:~/Desktop/Work/Interview/Scope Group/Assignment/Multi_Agent_Chatbot$ python ./src/agents/supervisor.py 
+(llm) gaurav@Granite:~/Desktop/Projects/LLM/Multi_Agent_Chatbot$ python ./src/agents/supervisor.py 
                       +-----------+                    
                       | __start__ |                    
                       +-----------+                    
