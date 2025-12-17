@@ -47,9 +47,10 @@ Source = "https://github.com/gaurav00700/Multi_Agent_Chatbot.git"
 Documentation = "https://github.com/gaurav00700/Multi_Agent_Chatbot.git"  # To be updated
 
 [tool.setuptools]
-package-dir = {"" = "."}
+package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
+where = ["src"]
 include = []
 exclude = ["assets*", "test*", ".env*"]
 
