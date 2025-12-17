@@ -19,10 +19,13 @@ dependencies = [
     "langchain",
     "langchain-ollama",
     "langchain-openai",
+    "langchain_chroma",
+	"langchain_community",
     "langchain-mcp-adapters",
     "mcp",
     "aiohttp",
-    "typing-extensions"
+    "typing-extensions",
+	"grandalf",
 ]
 
 authors = [
