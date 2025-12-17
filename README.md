@@ -5,7 +5,7 @@
 * Multi-agent chatbot using LangGraph containing a Supervisor agent and three expert agents (Data analyst, RAG and Conversation) 
 * Reusable subgraph to create multi-agent system
 * Expert agent has access of tools such as local python executor and knowledge vector DB 
-* Data Cleaning and Normalization from csv/txt/xls/json file
+* Data Cleaning and Normalization from csv/txt/xls/xlsx/json file
 * Data Ingestion: csv/txt/xls/json → Sqlite (local) and Postgres (server based); pdf → VectorDB
 * Agents follows ReAct strategy by utilizing LLM reasoning using OpenAI and Ollama and access to tools
 * Multiple Chatbot interfaces: [CLI](assets/Chatbot_conversation_CLI.txt) and [Streamlit frontend](assets/frontend.png)
@@ -92,13 +92,16 @@ Multi_agent_Chatbot/
     ```
     * Ensure that files are indexed to Sqlite and Chroma vector DBs by checking the [**temp**](data/temp) and [**vectordb**](data/vectordb) folders
     
-## Data ingestion to Sqlite and Chroma vector DB [csv | txt | json | xls | xlsx | pdf]
-    
-    ```bash
-    # For ingesting [csv | txt | json | xls | xlsx] file to sqlite db
-    uv run python src/utils/data_ingest_sqlite.py --file_path data/in/financials.csv
+## Data ingestion to Sqlite and Chroma vector DB
+1.  For ingesting [csv | txt | json | xls | xlsx] file to sqlite db
 
-    # For ingesting pdf file to vector db
+    ```bash
+    uv run python src/utils/data_ingest_sqlite.py --file_path data/in/financials.csv
+    ```
+
+2.  For ingesting pdf file to vector db
+
+    ```bash
     uv run python src/utils/data_ingest_vectordb.py --file_path data/in/SLM_are_Future_of_Agentic_AI.pdf
     ```
 
