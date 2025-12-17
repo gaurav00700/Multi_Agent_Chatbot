@@ -80,9 +80,11 @@ builder.add_edge(START, "supervisor")
 checkpointer = InMemorySaver()
 supervisor_agent = builder.compile(checkpointer=checkpointer)
 
-print(supervisor_agent.get_graph().draw_ascii()) # Print the agent
 
 if __name__ == "__main__":
+    
+    # Print the agent
+    print(supervisor_agent.get_graph().draw_ascii()) 
 
     # Start chat
     chatbot(

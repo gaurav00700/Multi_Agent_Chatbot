@@ -47,9 +47,10 @@ def conversation_node(state: MessagesState) -> Command[Literal["__end__"]]:
         goto=END,       # "__end__" END
     )
 
-# print(conversation_agent.get_graph().draw_ascii()) # Print the agent
-
 if __name__ == "__main__":
 
+    # Print the agent
+    print(conversation_agent.get_graph().draw_ascii()) 
+    
     # Start chat
     chatbot(agent=conversation_agent)

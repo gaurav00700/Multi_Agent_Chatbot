@@ -78,9 +78,10 @@ def data_analyst_node(state: MessagesState) -> Command[Literal["__end__"]]:
         goto=END,       # "__end__", END
     )
 
-# print(data_analyst_agent.get_graph().draw_ascii()) # Print the agent
-
 if __name__ == "__main__":
 
+    # Print the agent
+    print(data_analyst_agent.get_graph().draw_ascii()) 
+    
     # Start chat
     chatbot(agent=data_analyst_agent)

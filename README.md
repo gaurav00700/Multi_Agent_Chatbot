@@ -50,16 +50,7 @@ Multi_agent_Chatbot/
 └── README.md               # Readme file
 ```
 
-## Data ingestion scripts [csv | txt | json | xls | xlsx | pdf]
-    ```bash
-    # For ingesting [csv | txt | json | xls | xlsx] file to sqlite db
-    uv run python src/utils/data_ingest_sqlite.py --file_path data/in/financials.csv
-
-    # For ingesting pdf file to vector db
-    uv run python src/utils/data_ingest_vectordb.py --file_path data/in/SLM_are_Future_of_Agentic_AI.pdf
-    ```
-
-## Application usage
+## Prepare environment
 1. Create a `.env` environment variables as per below:-
 
     ```bash
@@ -79,21 +70,36 @@ Multi_agent_Chatbot/
     LANGSMITH_PROJECT="Project name"
 
     ```
-2. Install [uv package manager](https://docs.astral.sh/uv/getting-started/installation/)
+2. Install [**uv python**](https://docs.astral.sh/uv/getting-started/installation/) package manager
 
-3. Prepare environment
+3. Create python environment
     ```bash
     uv sync
     ```
-4. Start Frontend (Streamlit) using below command
+
+## Application usage
+1. Start Frontend (Streamlit) using below command
     ```bash
     uv run streamlit run src/chatbot.py 
     ```
-5. Open Frontend (Streamlit) → http://localhost:8501
+2. Open Frontend (Streamlit) → http://localhost:8501
+    * Sqlite and Chroma vector DBs will remain indexed during the startup of frontend application
+    * When new chat button is click, everything (chat history abd DBs) will be reset
 
-6. (Optional) using CLI mode
+3. (Optional) using CLI mode
     ```bash
     uv run python src/agents/supervisor.py
+    ```
+    * Ensure that files are indexed to Sqlite and Chroma vector DBs by checking the [**temp**](data/temp) and [**vectordb**](data/vectordb) folders
+    
+## Data ingestion to Sqlite and Chroma vector DB [csv | txt | json | xls | xlsx | pdf]
+    
+    ```bash
+    # For ingesting [csv | txt | json | xls | xlsx] file to sqlite db
+    uv run python src/utils/data_ingest_sqlite.py --file_path data/in/financials.csv
+
+    # For ingesting pdf file to vector db
+    uv run python src/utils/data_ingest_vectordb.py --file_path data/in/SLM_are_Future_of_Agentic_AI.pdf
     ```
 
 ## Observability using [LangSmith](https://smith.langchain.com/)
@@ -109,7 +115,7 @@ Multi_agent_Chatbot/
 1. Multi-step analytical questions (e.g., nested comparisons, windowed aggregations) may fail due to cascading errors in SQL generation and execution.
 2. Token-by-token streaming of markdown, especially code fences, can cause formatting issues in the frontend. This is a known limitation of incremental markdown rendering.
 3. When using locally hosted small LLMs (≈8B parameters), reasoning depth, tool usage accuracy, and routing reliability are reduced compared to larger models.
-4. The Supervisor agent can struggle to distinguish between closely related intents (e.g., RAG vs structured data queries), especially when user queries are underspecified.
+4. The Supervisor agent can struggle to distinguish between closely related intents (e.g., RAG vs structured data queries), especially when user queries are under specified.
 5. The system prioritizes clarity and extensibility over production concerns such as authentication, concurrency control, and resource isolation.
 6. Data cleaning and normalization infer types automatically, which may not always match domain-specific expectations for ambiguous columns.
 

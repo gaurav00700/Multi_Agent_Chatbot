@@ -21,35 +21,36 @@ def generate_thread_id():
     """generating unique id"""
     return str(uuid.uuid4())
 
-def reset(clear_file: bool = True):
+def reset(clear_all: bool = True):
     """Reset chatbot + optionally clear uploaded file widget."""
 
-    if clear_file:
+    if clear_all:
         st.session_state["file_path"] = None
+
+        # Reset the vector db
+        cfg.DEFAULT_VECTOR_DB.reset_collection()
+
+        # Delete old files from temp folder
+        for name in os.listdir(TEMP_PATH):
+            path = os.path.join(TEMP_PATH, name)
+            try:
+                if os.path.isdir(path):
+                    shutil.rmtree(path)
+                else:
+                    os.remove(path)
+            except Exception as e:
+                print(f"Warning: Failed to delete temp entry {name}: {e}")
 
     # reset thread + messages
     st.session_state["thread_id"] = generate_thread_id()
     st.session_state["message_history"] = []
 
-    # Reset the vector db
-    cfg.DEFAULT_VECTOR_DB.reset_collection()
-
-    # Delete old files from temp folder
-    for name in os.listdir(TEMP_PATH):
-        path = os.path.join(TEMP_PATH, name)
-        try:
-            if os.path.isdir(path):
-                shutil.rmtree(path)
-            else:
-                os.remove(path)
-        except Exception as e:
-            print(f"Warning: Failed to delete temp entry {name}: {e}")
 
 # =====Session Initialization=====
 # Setup session states
 if "file_uploader_key" not in st.session_state:
     st.session_state["file_uploader_key"] = 0
-    reset()
+    # reset()
 
 if "file_path" not in st.session_state:
     st.session_state["file_path"] = None
@@ -120,7 +121,7 @@ if uploaded_file:
             # Show the status
             status_box.update(label="✅ File ingested", state="complete", expanded=False)
             # Reset chat but NOT the uploader
-            # reset(clear_file=False)
+            # reset(clear_all=False)
             # st.rerun()
 else:
     st.sidebar.info("No file indexed yet.")
@@ -130,7 +131,7 @@ if st.sidebar.button("🆕 New Chat", use_container_width=True):
     # Increment key to reset the file_uploader widget
     st.session_state["file_uploader_key"] += 1
 
-    reset(clear_file=True)
+    reset(clear_all=True)
     st.rerun()
 
 # =====Main UI======
