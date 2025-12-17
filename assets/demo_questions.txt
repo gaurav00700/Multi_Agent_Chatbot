@@ -1,0 +1,15 @@
+# data_analyst
+How many columns are there in the database ?
+Name the unique company names in the table "financials"?
+Which company has highest total equity ?
+What was Alpha Corp’s revenue in 2022 in database ?
+Which company had the highest net income in 2021?
+Which company had the highest revenue growth between 2021 and 2023?
+Compare the net margin of Beta Inc and Gamma Ltd over the last 3 years.
+How did Delta PLC’s revenue grow between 2020 and 2023?
+Which company is right candidate for investment ?
+
+# RAG
+Summarize the document from the vector database
+Why SLM are good compare to VLM as per documents ?
+What are main main contribution of the paper ?
