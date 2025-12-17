@@ -99,6 +99,7 @@ Multi_agent_Chatbot/
     uv run python src/agents/supervisor.py
     ```
     * Ensure that files are indexed to Sqlite and Chroma vector DBs by checking the [**temp**](data/temp) and [**vectordb**](data/vectordb) folders
+    * Can also refer to [sample questions](assets/demo_questions.txt) corresponding to current Sqlite and Chroma vector DBs
     
 ## Data ingestion to Sqlite and Chroma vector DB
 1.  For ingesting [csv | txt | json | xls | xlsx] file to sqlite db
