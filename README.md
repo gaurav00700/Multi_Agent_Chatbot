@@ -120,24 +120,24 @@ Multi_agent_Chatbot/
     **Trade-off:**
 - ✓ Clear separation of responsibilities and extensibility
 - ✓ Fine-grained control over agent routing and tool access
-- ✘ Increased orchestration complexity compared to a single-agent design
-- ✘ Requires careful handling of state propagation and streaming across subgraph
+- ✗ Increased orchestration complexity compared to a single-agent design
+- ✗ Requires careful handling of state propagation and streaming across subgraph
 
 2. Supervisor-driven Intent Routing enable a query to first processed by a Supervisor agent that decides which expert agent should handle the request. This approach mirrors production agent routers but introduces probabilistic behavior.
 
     **Trade-off:**
 - ✓ Centralized control and easier debugging of routing logic
 - ✓ Enables future extensions (e.g., additional agents)
-- ✘ Routing quality depends heavily on LLM reasoning
-- ✘ Closely related intents (e.g., RAG vs data analysis) can cause misclassification
+- ✗ Routing quality depends heavily on LLM reasoning
+- ✗ Closely related intents (e.g., RAG vs data analysis) can cause misclassification
 
 3. Tool-based Data Analysis via SQL & Python Execution enables the Data Analyst agent answers structured data questions by generating SQL queries and executing them via a local Python executor (SQLite/Postgres). This was preferred over pure RAG for tabular data due to accuracy and transparency.
 
     **Trade-off:**
 - ✓ Guarantees answers are grounded in provided data
 - ✓ Avoids hallucination from LLM internal knowledge
-- ✘ Multi-step reasoning (generate → execute → debug) can fail on complex queries
-- ✘ Execution safety requires restricted environments and careful validation
+- ✗ Multi-step reasoning (generate → execute → debug) can fail on complex queries
+- ✗ Execution safety requires restricted environments and careful validation
 
 
 4. Local-first Storage (SQLite + Optional Postgres) is used as the default local database, with optional Postgres support for server-based deployment. This balances simplicity with extensibility.
@@ -145,30 +145,30 @@ Multi_agent_Chatbot/
     **Trade-off:**
 - ✓ Easy local setup and fast iteration
 - ✓ No external dependencies required for basic usage
-- ✘ Not suitable for high-concurrency or large-scale datasets
-- ✘ Schema inference is best-effort and may require manual tuning
+- ✗ Not suitable for high-concurrency or large-scale datasets
+- ✗ Schema inference is best-effort and may require manual tuning
 
 5. Streaming at Supervisor Level with subgraphs=True enable the Token-level streaming is implemented at the parent (supervisor) graph level using subgraphs=True.
 
-Trade-off:
+    **Trade-off:**
 - ✓ Enables real-time streaming from subgraph agents
 - ✓ Preserves a unified user experience across agents
-- ✘ Requires filtering of routing tokens and final message chunks
-- ✘ Streaming markdown (especially code blocks) introduces UI complexity
+- ✗ Requires filtering of routing tokens and final message chunks
+- ✗ Streaming markdown (especially code blocks) introduces UI complexity
 
 6. Streamlit-based Frontend was chosen for rapid prototyping and ease of interaction. Streamlit is suitable for demos and internal tools but not ideal for fine-grained UI control.
 
     **Trade-off:**
 - ✓ Fast development and minimal boilerplate
 - ✓ Built-in support for chat-style UIs
-- ✘ Limited control over incremental markdown rendering
-- ✘ Code blocks and text streaming require careful handling
+- ✗ Limited control over incremental markdown rendering
+- ✗ Code blocks and text streaming require careful handling
 
 7. LLM Provider Abstraction (OpenAI / Ollama) supports both cloud-based (OpenAI) and local (Ollama) LLMs via configuration. This abstraction allows experimentation across model sizes and infrastructures.
 
     **Trade-off:**
 - ✓ Flexibility in deployment environments
 - ✓ Cost control and offline experimentation
-- ✘ Smaller local models show reduced reasoning quality
-- ✘ Behavioral differences across providers require tuning
+- ✗ Smaller local models show reduced reasoning quality
+- ✗ Behavioral differences across providers require tuning
 
