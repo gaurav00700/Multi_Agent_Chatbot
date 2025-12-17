@@ -50,8 +50,16 @@ Multi_agent_Chatbot/
 └── README.md               # Readme file
 ```
 
-## Prepare environment
-1. Create a `.env` environment variables as per below:-
+## Setup the Environment
+1. Clone and cd into the repo
+    ```bash
+    # Clone the repo
+    git@github.com:gaurav00700/Multi_Agent_Chatbot.git
+    
+    # cd into the repo
+    cd Multi_Agent_Chatbot
+    ```
+2. Create a `.env` file in the root directory with the following content:
 
     ```bash
     # LLM
@@ -70,9 +78,9 @@ Multi_agent_Chatbot/
     LANGSMITH_PROJECT="Project name"
 
     ```
-2. Install [**uv python**](https://docs.astral.sh/uv/getting-started/installation/) package manager
+3. Install [**uv python**](https://docs.astral.sh/uv/getting-started/installation/) package manager
 
-3. Create python environment
+4. Create python environment
     ```bash
     uv sync
     ```
