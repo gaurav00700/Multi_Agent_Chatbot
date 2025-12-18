@@ -54,7 +54,7 @@ Multi_agent_Chatbot/
 1. Clone and cd into the repo
     ```bash
     # Clone the repo
-    git@github.com:gaurav00700/Multi_Agent_Chatbot.git
+    git clone https://github.com/gaurav00700/Multi_Agent_Chatbot.git
     
     # cd into the repo
     cd Multi_Agent_Chatbot
