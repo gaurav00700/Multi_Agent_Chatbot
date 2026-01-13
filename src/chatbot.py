@@ -160,51 +160,40 @@ if user_input:
 
     # Streaming block
     with st.chat_message("assistant"):
-        # stream_box = st.empty()
-        # stream_box.markdown("⏳ Thinking…")
+        # Create a container at the top for tool statuses
+        tool_status_container = st.container()
         status_holder = {"box": None}
-
-        streamed_text = ""
-        first_token = False
 
         # Create payload
         payload = {"messages": [HumanMessage(content=user_input)]}
+
+        # Configuration for duplication filtering
+        WRAPPER_NODES = ["data_analyst", "conversation", "rag", "supervisor"]
+
         def ai_only_stream():
-            temp_token = ""
             for (namespace, data) in chatbot.stream(payload, config=CONFIG, subgraphs=True, stream_mode="messages"):
                 # Unpack data
                 msg, metadata = data
+                node_name = metadata.get("langgraph_node")
 
-                # skip supervisor messages
-                if metadata.get("langgraph_node") == "supervisor":  
+                # 1. Skip wrapper nodes to avoid duplication
+                if node_name in WRAPPER_NODES:  
                     continue
                 
-                # Handle tool calls
+                # 2. Handle tool messages (results)
                 if isinstance(msg, ToolMessage):
-                    # Get tool name
                     tool_name = getattr(msg, "name", "tool")
-
                     if status_holder["box"] is None:
-                        status_holder["box"] = st.status(
-                            f"🔧 Using `{tool_name}` …", expanded=True
-                            )
+                        with tool_status_container:
+                            status_holder["box"] = st.status(f"🔧 Using `{tool_name}` …", expanded=True)
                     else:
-                        status_holder["box"].update(
-                            label=f"🔧 Using `{tool_name}` …",
-                            state="running",
-                            expanded=True,
-                        )
-
-                if (
-                    (isinstance(msg, AIMessage) or isinstance(msg, ToolMessage))  and 
-                    msg.content and 
-                    getattr(msg, "chunk_position", None) != "last"
-                    ):
-
-                    #TODO: Handle code tokens
-                    token = msg.content
-                    # print(msg.content, end="", flush=True)
+                        status_holder["box"].update(label=f"🔧 Using `{tool_name}` …", state="running", expanded=True)
                     
+                    status_holder["box"].markdown(f"**Output from `{tool_name}`:**\n\n{msg.content}")
+                    continue
+
+                # 3. Handle AI assistant messages
+                if isinstance(msg, AIMessage) and msg.content:
                     yield msg.content
 
         ai_message = st.write_stream(ai_only_stream())
