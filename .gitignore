@@ -1,10 +1,11 @@
 *__pycache__
+# *.db
+.DS_Store
+src/test/data*
+
+# Environment
+.env
 .venv
 venv
-
-.env
-# *.db
-
-uv.lock
+# uv.lock
 *egg-info
-.DS_Store
