@@ -45,9 +45,12 @@ Multi_agent_Chatbot/
 │   ├── tools/              # Tools modules
 │   ├── utils/              # Utility functions
 │   ├── chatbot.py          # Streamlit Frontend UI
-├── test/                   # Notebooks for testing
+│   ├── test/               # Test cases and Notebooks for testing
+├── .env                    # Environment variables
+├── .gitignore              # Git ignore file
 ├── pyproject.toml          # project file
-└── README.md               # Readme file
+├── README.md               # Readme file
+└── uv.lock                 # Lock file for uvicorn               
 ```
 
 ## Setup the Environment
@@ -119,9 +122,11 @@ Multi_agent_Chatbot/
 * Open the `https://smith.langchain.com` to track the chatbot performance
 
 ## TODOs
-1. [ ] Storing conversation threads
-2. [ ] Cloud deployment
-3. [ ] Test cases 
+1. [ ] Schema Management & Enforcement
+2. [ ] Reversible pseudonymization of data for PII
+3. [ ] Feature to restore conversation threads
+4. [ ] Application containerization and Orchestration
+5. [ ] Unit Tests
 
 ## Limitations
 1. Multi-step analytical questions (e.g., nested comparisons, windowed aggregations) may fail due to cascading errors in SQL generation and execution.
@@ -156,7 +161,6 @@ Multi_agent_Chatbot/
 - ✓ Avoids hallucination from LLM internal knowledge
 - ✗ Multi-step reasoning (generate → execute → debug) can fail on complex queries
 - ✗ Execution safety requires restricted environments and careful validation
-
 
 4. Local-first Storage (SQLite + Optional Postgres) is used as the default local database, with optional Postgres support for server-based deployment. This balances simplicity with extensibility.
 
